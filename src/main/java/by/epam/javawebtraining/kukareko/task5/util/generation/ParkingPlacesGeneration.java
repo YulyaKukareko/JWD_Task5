@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kukareko.task5.util.generation;
 
-import by.epam.javawebtraining.kukareko.task5.model.logic.Parking;
+import by.epam.javawebtraining.kukareko.task5.model.entity.Parking;
 import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
 
 /**
