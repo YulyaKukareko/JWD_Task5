@@ -17,7 +17,7 @@ public class Car implements Runnable, Serializable {
     private static Renderer renderer;
 
     private int number;
-    private ParkingBlocked<ParkingPlace> place;
+    private ParkingBlocked place;
     private Thread thread;
 
     static {
@@ -29,11 +29,11 @@ public class Car implements Runnable, Serializable {
     }
 
     public Car() {
-        this.place = new ParkingBlocked<>();
+        this.place = new ParkingBlocked();
         thread.start();
     }
 
-    public Car(int number, ParkingBlocked<ParkingPlace> places) {
+    public Car(int number, ParkingBlocked places) {
         this.number = number;
         this.place = places;
         thread.start();
@@ -47,9 +47,9 @@ public class Car implements Runnable, Serializable {
         ParkingPlace currentPlace = null;
         try {
             currentPlace = place.getResource(5000);
+            renderer.render("Car: " + getNumber() + " took place " + currentPlace.getNumber());
             ParkingPlace oldPlaces = currentPlace;
 
-            renderer.render("Car: " + getNumber() + " took place " + currentPlace.getNumber());
             currentPlace = UsingParking.using(currentPlace);
 
             if(oldPlaces != currentPlace){
