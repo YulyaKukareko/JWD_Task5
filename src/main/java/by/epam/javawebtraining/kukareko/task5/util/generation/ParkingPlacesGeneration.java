@@ -9,7 +9,7 @@ import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingBlocked;
  */
 public class ParkingPlacesGeneration implements Runnable {
 
-    private ParkingBlocked<ParkingPlace> parking;
+    private ParkingBlocked parking;
     private Thread thread;
 
     {
@@ -17,11 +17,11 @@ public class ParkingPlacesGeneration implements Runnable {
     }
 
     public ParkingPlacesGeneration() {
-        this.parking = new ParkingBlocked<>();
+        this.parking = new ParkingBlocked();
         thread.start();
     }
 
-    public ParkingPlacesGeneration(ParkingBlocked<ParkingPlace> parking) {
+    public ParkingPlacesGeneration(ParkingBlocked parking) {
         this.parking = parking;
         thread.start();
     }

@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class CarGeneration implements Runnable {
 
-    private ParkingBlocked<ParkingPlace> parking;
+    private ParkingBlocked parking;
     private Thread thread;
     private static Random random;
     private static final int INTERVAL_GENERATION = 100;
@@ -23,11 +23,11 @@ public class CarGeneration implements Runnable {
     }
 
     public CarGeneration() {
-        parking = new ParkingBlocked<>();
+        parking = new ParkingBlocked();
         thread.start();
     }
 
-    public CarGeneration(ParkingBlocked<ParkingPlace> parking) {
+    public CarGeneration(ParkingBlocked parking) {
         this.parking = parking;
         thread.start();
     }

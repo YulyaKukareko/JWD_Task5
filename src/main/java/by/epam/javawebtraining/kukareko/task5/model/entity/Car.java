@@ -17,7 +17,7 @@ public class Car implements Runnable, Serializable {
     private static Renderer renderer;
 
     private int number;
-    private ParkingBlocked place;
+    private ParkingBlocked<ParkingPlace> place;
     private Thread thread;
 
     static {

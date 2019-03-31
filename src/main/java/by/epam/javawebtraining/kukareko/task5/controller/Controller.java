@@ -1,6 +1,5 @@
 package by.epam.javawebtraining.kukareko.task5.controller;
 
-import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
 import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingBlocked;
 import by.epam.javawebtraining.kukareko.task5.util.generation.CarGeneration;
 import by.epam.javawebtraining.kukareko.task5.util.generation.ParkingPlacesGeneration;
@@ -21,7 +20,7 @@ public class Controller {
     public static void main(String[] args) {
         try {
 
-            ParkingBlocked<ParkingPlace> parking = new ParkingBlocked<>();
+            ParkingBlocked parking = new ParkingBlocked();
 
             new ParkingPlacesGeneration(parking);
 

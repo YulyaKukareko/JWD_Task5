@@ -12,13 +12,13 @@ import java.util.Queue;
  * @author Yulya Kukareko
  * @version 1.0 31 Mar 2019
  */
-public class ParkingBlocked {
+public class ParkingBlocked<T> {
 
     private static final Logger LOGGER;
     private static final int COUNT_PLACES = 6;
     private static Renderer renderer;
 
-    private Queue<ParkingPlace> resource;
+    private Queue<T> resource;
 
     static {
         LOGGER = Logger.getLogger("ParkingLogger");
@@ -29,7 +29,7 @@ public class ParkingBlocked {
         resource = new LinkedList<>();
     }
 
-    public ParkingBlocked(Queue<ParkingPlace> resources) {
+    public ParkingBlocked(Queue<T> resources) {
         this.resource = resources;
     }
 
@@ -37,11 +37,11 @@ public class ParkingBlocked {
         return COUNT_PLACES;
     }
 
-    public void addResource(ParkingPlace newResource) {
+    public void addResource(T newResource) {
         resource.add(newResource);
     }
 
-    public synchronized ParkingPlace getResource(long maxWaitMillis) throws Exception {
+    public synchronized T getResource(long maxWaitMillis) throws Exception {
         try {
             if (resource.size() != 0) {
                 return resource.poll();
@@ -57,7 +57,7 @@ public class ParkingBlocked {
         throw new TimeoutExceededException();
     }
 
-    public synchronized void returnResources(ParkingPlace res) {
+    public synchronized void returnResources(T res) {
         resource.add(res);
     }
 }
