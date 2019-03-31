@@ -1,7 +1,7 @@
 package by.epam.javawebtraining.kukareko.task5.util.generation;
 
-import by.epam.javawebtraining.kukareko.task5.model.logic.Parking;
 import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
+import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingBlocked;
 
 /**
  * @author Yulya Kukareko
@@ -9,7 +9,7 @@ import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
  */
 public class ParkingPlacesGeneration implements Runnable {
 
-    private Parking<ParkingPlace> parking;
+    private ParkingBlocked<ParkingPlace> parking;
     private Thread thread;
 
     {
@@ -17,11 +17,11 @@ public class ParkingPlacesGeneration implements Runnable {
     }
 
     public ParkingPlacesGeneration() {
-        this.parking = new Parking<>();
+        this.parking = new ParkingBlocked<>();
         thread.start();
     }
 
-    public ParkingPlacesGeneration(Parking<ParkingPlace> parking) {
+    public ParkingPlacesGeneration(ParkingBlocked<ParkingPlace> parking) {
         this.parking = parking;
         thread.start();
     }
@@ -29,7 +29,7 @@ public class ParkingPlacesGeneration implements Runnable {
     @Override
     public void run() {
         int count = 1;
-        while (count < Parking.getCountPlaces()) {
+        while (count < ParkingBlocked.getCountPlaces()) {
             parking.addResource(new ParkingPlace(count));
             count++;
         }
