@@ -1,6 +1,9 @@
 package by.epam.javawebtraining.kukareko.task5.model.entity;
 
-import by.epam.javawebtraining.kukareko.task5.model.logic.Parking;
+import by.epam.javawebtraining.kukareko.task5.model.logic.UsingParking;
+import by.epam.javawebtraining.kukareko.task5.view.FileRender;
+import by.epam.javawebtraining.kukareko.task5.view.Renderer;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,20 +14,26 @@ import java.util.Objects;
  */
 public class Car implements Runnable, Serializable {
 
+    private static Renderer renderer;
+
     private int number;
-    private Parking<ParkingPlace> place;
+    private ParkingBlocked<ParkingPlace> place;
     private Thread thread;
+
+    static {
+        renderer = new FileRender();
+    }
 
     {
         thread = new Thread(this);
     }
 
     public Car() {
-        this.place = new Parking<>();
+        this.place = new ParkingBlocked<>();
         thread.start();
     }
 
-    public Car(int number, Parking<ParkingPlace> places) {
+    public Car(int number, ParkingBlocked<ParkingPlace> places) {
         this.number = number;
         this.place = places;
         thread.start();
@@ -40,19 +49,19 @@ public class Car implements Runnable, Serializable {
             currentPlace = place.getResource(5000);
             ParkingPlace oldPlaces = currentPlace;
 
-            System.out.println("Машина: " + getNumber() + " заняла место " + currentPlace.getNumber());
-            currentPlace = currentPlace.using();
+            renderer.render("Car: " + getNumber() + " took place " + currentPlace.getNumber());
+            currentPlace = UsingParking.using(currentPlace);
 
             if(oldPlaces != currentPlace){
-                System.out.println("Машина " + getNumber() + " перепаркоавлвсь на место " + currentPlace.getNumber() + " с места " +
+                renderer.render("Car " + getNumber() + " reparking on place " + currentPlace.getNumber() + " from place " +
                         oldPlaces.getNumber());
             }
 
         } catch (Exception e) {
-            System.out.println("Нет места для машины: " + getNumber());
+            renderer.render("No place for car: " + getNumber());
         } finally {
             if (currentPlace != null) {
-                System.out.println("Машина " + getNumber() + " уехала, освободив место " + currentPlace.getNumber());
+                renderer.render("Car " + getNumber() + " left, making room " + currentPlace.getNumber());
                 place.returnResources(currentPlace);
             }
         }
@@ -70,5 +79,14 @@ public class Car implements Runnable, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(number, place);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "number=" + number +
+                ", place=" + place +
+                ", thread=" + thread +
+                '}';
     }
 }
