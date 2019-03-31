@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+    <appender name="ROOT" class="org.apache.log4j.FileAppender">
+
+        <param name="file" value="src/main/resources/log/rootLogger.log"/>
+        <param name="immediateFlush" value="true"/>
+        <param name="threshold" value="debug"/>
+        <param name="append" value="false"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PARKING" class="org.apache.log4j.FileAppender">
+
+        <param name="file" value="src/main/resources/log/parkingLogger.log"/>
+        <param name="immediateFlush" value="true"/>
+        <param name="threshold" value="debug"/>
+        <param name="append" value="false"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="USING_PARKING_PLACE" class="org.apache.log4j.FileAppender">
+
+        <param name="file" value="src/main/resources/log/usingParkingLogger.log"/>
+        <param name="immediateFlush" value="true"/>
+        <param name="threshold" value="debug"/>
+        <param name="append" value="false"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE_RENDERER" class="org.apache.log4j.FileAppender">
+
+        <param name="file" value="src/main/resources/log/fileRendererLogger.log"/>
+        <param name="immediateFlush" value="true"/>
+        <param name="threshold" value="debug"/>
+        <param name="append" value="false"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="log4j.rootLogger" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="ParkingLogger" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="PARKING"/>
+    </logger>
+
+    <logger name="UsingParkingLogger" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="USING_PARKING_PLACE"/>
+    </logger>
+
+    <logger name="FileRenderer" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="FILE_RENDERER"/>
+    </logger>
+
+</log4j:configuration>
