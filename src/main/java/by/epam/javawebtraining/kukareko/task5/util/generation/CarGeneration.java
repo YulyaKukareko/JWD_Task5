@@ -1,8 +1,7 @@
 package by.epam.javawebtraining.kukareko.task5.util.generation;
 
 import by.epam.javawebtraining.kukareko.task5.model.entity.Car;
-import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
-import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingBlocked;
+import by.epam.javawebtraining.kukareko.task5.model.entity.Parking;
 
 import java.util.Random;
 
@@ -12,7 +11,7 @@ import java.util.Random;
  */
 public class CarGeneration implements Runnable {
 
-    private ParkingBlocked parking;
+    private Parking parking;
     private Thread thread;
     private static Random random;
     private static final int INTERVAL_GENERATION = 100;
@@ -23,11 +22,11 @@ public class CarGeneration implements Runnable {
     }
 
     public CarGeneration() {
-        parking = new ParkingBlocked();
+        parking = new Parking();
         thread.start();
     }
 
-    public CarGeneration(ParkingBlocked parking) {
+    public CarGeneration(Parking parking) {
         this.parking = parking;
         thread.start();
     }

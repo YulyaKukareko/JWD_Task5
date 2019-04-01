@@ -1,10 +1,6 @@
 package by.epam.javawebtraining.kukareko.task5.model.entity;
 
 import by.epam.javawebtraining.kukareko.task5.model.logic.UsingParking;
-import by.epam.javawebtraining.kukareko.task5.view.FileRender;
-import by.epam.javawebtraining.kukareko.task5.view.Renderer;
-import org.apache.log4j.Logger;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,26 +10,20 @@ import java.util.Objects;
  */
 public class Car implements Runnable, Serializable {
 
-    private static Renderer renderer;
-
     private int number;
-    private ParkingBlocked<ParkingPlace> place;
+    private Parking<ParkingPlace> place;
     private Thread thread;
-
-    static {
-        renderer = new FileRender();
-    }
 
     {
         thread = new Thread(this);
     }
 
     public Car() {
-        this.place = new ParkingBlocked();
+        this.place = new Parking();
         thread.start();
     }
 
-    public Car(int number, ParkingBlocked places) {
+    public Car(int number, Parking places) {
         this.number = number;
         this.place = places;
         thread.start();
@@ -47,21 +37,21 @@ public class Car implements Runnable, Serializable {
         ParkingPlace currentPlace = null;
         try {
             currentPlace = place.getResource(5000);
-            renderer.render("Car: " + getNumber() + " took place " + currentPlace.getNumber());
+            Parking.LOGGER.info("Car: " + getNumber() + " took place " + currentPlace.getNumber());
             ParkingPlace oldPlaces = currentPlace;
 
             currentPlace = UsingParking.using(currentPlace);
 
             if(oldPlaces != currentPlace){
-                renderer.render("Car " + getNumber() + " reparking on place " + currentPlace.getNumber() + " from place " +
+                Parking.LOGGER.info("Car " + getNumber() + " reparking on place " + currentPlace.getNumber() + " from place " +
                         oldPlaces.getNumber());
             }
 
         } catch (Exception e) {
-            renderer.render("No place for car: " + getNumber());
+            Parking.LOGGER.info("No place for car: " + getNumber());
         } finally {
             if (currentPlace != null) {
-                renderer.render("Car " + getNumber() + " left, making room " + currentPlace.getNumber());
+                Parking.LOGGER.info("Car " + getNumber() + " left, making room " + currentPlace.getNumber());
                 place.returnResources(currentPlace);
             }
         }
