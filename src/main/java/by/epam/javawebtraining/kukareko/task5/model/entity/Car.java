@@ -3,6 +3,9 @@ package by.epam.javawebtraining.kukareko.task5.model.entity;
 import by.epam.javawebtraining.kukareko.task5.model.logic.UsingParking;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Random;
+
+import static java.lang.System.currentTimeMillis;
 
 /**
  * @author Yulya Kukareko
@@ -12,7 +15,15 @@ public class Car implements Runnable, Serializable {
 
     private int number;
     private Parking<ParkingPlace> place;
+    private static final int MAX_WAITING_TIME = 3000;
+    private static final int TIME_ON_PARKING = 3000;
+    private static final int TIME_WITHOUT_REPARKING = 700;
+    private static Random random;
     private Thread thread;
+
+    static {
+        random = new Random();
+    }
 
     {
         thread = new Thread(this);
@@ -36,15 +47,23 @@ public class Car implements Runnable, Serializable {
     public void run() {
         ParkingPlace currentPlace = null;
         try {
-            currentPlace = place.getResource(5000);
+            currentPlace = place.getResource(MAX_WAITING_TIME);
+            ParkingPlace oldPlaces;
+
             Parking.LOGGER.info("Car: " + getNumber() + " took place " + currentPlace.getNumber());
-            ParkingPlace oldPlaces = currentPlace;
 
-            currentPlace = UsingParking.using(currentPlace);
+            long end = currentTimeMillis() + random.nextInt(TIME_ON_PARKING);
 
-            if(oldPlaces != currentPlace){
-                Parking.LOGGER.info("Car " + getNumber() + " reparking on place " + currentPlace.getNumber() + " from place " +
-                        oldPlaces.getNumber());
+            while (currentTimeMillis() < end) {
+                Thread.sleep(TIME_WITHOUT_REPARKING);
+
+                oldPlaces = currentPlace;
+                currentPlace = UsingParking.using(currentPlace);
+
+                if (oldPlaces != currentPlace) {
+                    Parking.LOGGER.info("Car " + getNumber() + " reparking on place " + currentPlace.getNumber()
+                            + " from place " + oldPlaces.getNumber());
+                }
             }
 
         } catch (Exception e) {
