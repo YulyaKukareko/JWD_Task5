@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Parking<T> {
 
-    private static final Logger LOGGER;
+    public static final Logger LOGGER;
     private static final int COUNT_PLACES = 6;
     private final Semaphore semaphore;
     private Queue<T> resource;
