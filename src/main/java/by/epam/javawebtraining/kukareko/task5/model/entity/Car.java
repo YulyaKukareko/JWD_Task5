@@ -50,11 +50,12 @@ public class Car implements Runnable, Serializable {
         try {
             currentPlace = place.getResource(MAX_WAITING_TIME);
             ParkingPlace oldPlaces;
+
             Parking.LOGGER.info("Car: " + getNumber() + " took place " + currentPlace.getNumber());
 
             long end = currentTimeMillis() + random.nextInt(TIME_ON_PARKING);
 
-            while(currentTimeMillis() < end) {
+            while (currentTimeMillis() < end) {
                 Thread.sleep(TIME_WITHOUT_REPARKING);
 
                 oldPlaces = currentPlace;
