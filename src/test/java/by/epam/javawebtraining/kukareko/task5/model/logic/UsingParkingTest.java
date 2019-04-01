@@ -1,7 +1,6 @@
 package by.epam.javawebtraining.kukareko.task5.model.logic;
 
 import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
-import by.epam.javawebtraining.kukareko.task5.model.logic.UsingParking;
 import com.anarsoft.vmlens.concurrent.junit.ThreadCount;
 import org.junit.Test;
 

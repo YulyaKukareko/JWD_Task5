@@ -14,13 +14,14 @@ import static java.lang.System.currentTimeMillis;
  */
 public class Car implements Runnable, Serializable {
 
-    private int number;
-    private Parking<ParkingPlace> place;
-    private Thread thread;
     private static final int MAX_WAITING_TIME = 3000;
     private static final int TIME_ON_PARKING = 3000;
     private static final int TIME_WITHOUT_REPARKING = 700;
     private static Random random;
+
+    private int number;
+    private Parking<ParkingPlace> place;
+    private Thread thread;
 
     static {
         random = new Random();

@@ -15,7 +15,6 @@ import java.util.concurrent.TimeoutException;
 public class UsingParking {
 
     private static final Exchanger<ParkingPlace> exchanger;
-    private static final int STOP_INTERVAL = 1000;
     private static final int WAITING_REPARKING_INTERVAL = 1000;
     private static final int NEED_REPARKING = 2;
 
@@ -29,7 +28,6 @@ public class UsingParking {
     public static ParkingPlace using(ParkingPlace currentPlace) {
         ParkingPlace newParkingPlace = currentPlace;
         newParkingPlace = trySwap(newParkingPlace, currentPlace);
-//            Thread.sleep(random.nextInt(STOP_INTERVAL));
 
         return newParkingPlace;
     }
@@ -45,7 +43,8 @@ public class UsingParking {
         } catch (InterruptedException ex) {
             Parking.LOGGER.error(ex.getMessage());
         }
-        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2 && newParkingPlace != currentParking ? newParkingPlace : currentParking;
+        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2
+                && newParkingPlace != currentParking ? newParkingPlace : currentParking;
     }
 
 }
