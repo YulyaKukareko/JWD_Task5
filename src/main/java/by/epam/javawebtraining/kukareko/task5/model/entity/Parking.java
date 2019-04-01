@@ -31,7 +31,7 @@ public class Parking<T> {
 
     public Parking(Queue<T> resources) {
         this.semaphore = new Semaphore(COUNT_PLACES, true);
-        this.resource = new LinkedList<>();
+        this.resource = resources;
     }
 
     public static int getCountPlaces() {

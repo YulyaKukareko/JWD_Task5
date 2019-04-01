@@ -2,6 +2,7 @@ package by.epam.javawebtraining.kukareko.task5.model.logic;
 
 import by.epam.javawebtraining.kukareko.task5.model.entity.Parking;
 import by.epam.javawebtraining.kukareko.task5.model.entity.ParkingPlace;
+
 import java.util.Random;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.TimeUnit;
@@ -27,13 +28,9 @@ public class UsingParking {
 
     public static ParkingPlace using(ParkingPlace currentPlace) {
         ParkingPlace newParkingPlace = currentPlace;
-        try {
-            newParkingPlace = trySwap(newParkingPlace, currentPlace);
-            Thread.sleep(random.nextInt(STOP_INTERVAL));
+        newParkingPlace = trySwap(newParkingPlace, currentPlace);
+//            Thread.sleep(random.nextInt(STOP_INTERVAL));
 
-        } catch (InterruptedException ex) {
-            Parking.LOGGER.error(ex.getMessage());
-        }
         return newParkingPlace;
     }
 
@@ -48,7 +45,7 @@ public class UsingParking {
         } catch (InterruptedException ex) {
             Parking.LOGGER.error(ex.getMessage());
         }
-        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2 ? newParkingPlace : currentParking;
+        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2 && newParkingPlace != currentParking ? newParkingPlace : currentParking;
     }
 
 }
