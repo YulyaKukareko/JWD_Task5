@@ -46,6 +46,7 @@ public class UsingParking {
         } catch (InterruptedException ex) {
             Parking.LOGGER.error(ex.getMessage());
         }
-        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2 ? newParkingPlace : currentParking;
+        return Math.abs(newParkingPlace.getNumber() - currentParking.getNumber()) < 2
+                && newParkingPlace != currentParking ? newParkingPlace : currentParking;
     }
 }
